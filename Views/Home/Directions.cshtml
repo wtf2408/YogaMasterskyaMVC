@@ -1,0 +1,31 @@
+﻿@{
+    var directions = new List<Direction>();
+    string filePath = "D:\\CSharpProject\\MasterskyaBot\\MasterskyaBot\\bin\\Debug\\net8.0\\directions.json";  // путь к файлу JSON
+    if (System.IO.File.Exists(filePath))
+    {
+        var json = System.IO.File.ReadAllText(filePath);
+        directions = System.Text.Json.JsonSerializer.Deserialize<List<Direction>>(json) ?? new List<Direction>();
+    }
+}
+
+<div class="directions" id="directions">
+    <div class="directions_content-width">
+        <h2 class="directions_title">НАПРАВЛЕНИЯ</h2>
+
+        <div class="directions_container">
+            @foreach (var direction in directions)
+            {
+                <div class="direction">
+                    <img class="direction_image" src="@direction.ImageUrl" alt="@direction.Name" />
+                    <div class="text-about">
+                        <h3 class="direction_name">@direction.Name</h3>
+                        <p class="direction_description">@direction.Description</p>
+                        <p class="direction_description addtional_direction">@direction.AdditionalDescription</p>
+                        <button class="direction_btn-more">подробнее о направлении</button>
+                        <button class="direction_sign-up sign-up_btn">записаться</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

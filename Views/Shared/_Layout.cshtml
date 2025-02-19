@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--SEO-->
+    <title>@ViewData["Title"]</title>
+    <meta name="description" 
+          content="Студия йоги в Пятигорске, широкий спектор направлений: йога Айенгара, ха-тха йога, тантра, стретчинг">
+    <meta name="keywords" content="Йога в Пятигорске, йога Пятигорск, йога кмв, йога Айенгара, тантра Пятигорск, йога Мастерская, yoga Masterskya, ха-тха йога Пятигорск, стретчинг Пятигорск" />
+    <!--SEO-->
+    
+
+    <!--styles-->
+    <link rel="stylesheet" href="~/css/default.css">
+    <link rel="stylesheet" href="~/css/header.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/footer.css">
+    <link rel="stylesheet" href="~/css/mediaqueries.css">
+    <!--styles-->
+
+    <!--Яндеск карты API-->
+    <script src="https://api-maps.yandex.ru/2.1?apikey=cd46804d-f474-40fa-be86-c4fb4252899f&lang=ru_RU" 
+            type="text/javascript"></script>
+    <!--Яндеск карты API-->
+    <link rel="icon" href="./favicon.ico" type="text/x-icon">
+</head>
+<body>
+    <header class="header">
+        @await Html.PartialAsync("Header")
+    </header>
+
+    <div class="page-wraper">
+        <main class="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        @await Html.PartialAsync("Footer")
+    </footer>
+
+    <script src="scripts/script.js"></script>
+    <script src="scripts/map.js"></script>
+    <script src="https://kit.fontawesome.com/6324adcb34.js" crossorigin="anonymous"></script>
+</body>
+</html>

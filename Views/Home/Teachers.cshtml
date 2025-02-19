@@ -1,0 +1,63 @@
+﻿@using System.Text.Json;
+@using System.IO;
+
+@{
+    List<Teacher> teachers = null!;
+    string filePath = "D:\\CSharpProject\\MasterskyaBot\\MasterskyaBot\\bin\\Debug\\net8.0\\teachers.json";
+    if (System.IO.File.Exists(filePath))
+    {
+        var json = File.ReadAllText(filePath);
+        teachers = JsonSerializer.Deserialize<List<Teacher>>(json, new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true
+        }) 
+        ?? new List<Teacher>();
+    }
+}
+
+
+
+<div class="teachers" id="teachers">
+    <div class="teachers_container">
+        <h2 class="teachers_title">ПРЕПОДАВАТЕЛИ</h2>
+
+        @for (int i = 0; i < teachers.Count; i++)
+        {
+            var leftClass = i % 2 == 0 ? string.Empty : "left";
+            <div class="teacher">
+                <div class="teacher_main">
+                    <img src="@teachers[i].PhotoUrl" alt="@teachers[i].Name" class="teacher_photo @leftClass">
+                    <div class="about_teacher">
+                        <h2 class="teacher_name">@teachers[i].Name</h2>
+                        @foreach (var desc in teachers[i].Descriptions)
+                        {
+                            <p class="teacher_description">@desc</p> <br/>
+                        }
+                        @if(teachers[i].MainCourses != null) 
+                        {
+                            <p class="teacher_courses_header">Пройденные курсы и семинары:</p>
+                        }
+                    </div>
+                </div>
+                <div class="teacher_courses">
+                    @if (teachers[i].MainCourses != null)
+                    {
+                        <ul>
+                                @foreach (var course in teachers[i].MainCourses) { 
+                                    <li>@course</li> }
+                        </ul>
+                    }
+                    @if (teachers[i].AdditionalCourses != null)
+                    {
+                        <ul class="addtional_courses">
+                                @foreach (var course in teachers[i].AdditionalCourses) { 
+                                    <li>@course</li> }
+                        </ul>
+                        <button class="courses_btn-more">посмотреть все</button>
+                    }
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
