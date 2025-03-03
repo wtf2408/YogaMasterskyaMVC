@@ -1,9 +1,10 @@
-﻿@using System.Text.Json;
+﻿@model string;
+@using System.Text.Json;
 @using System.IO;
 
 @{
     List<Teacher> teachers = null!;
-    string filePath = "D:\\CSharpProject\\MasterskyaBot\\MasterskyaBot\\bin\\Debug\\net8.0\\teachers.json";
+    string filePath = Model;
     if (System.IO.File.Exists(filePath))
     {
         var json = File.ReadAllText(filePath);
@@ -14,6 +15,7 @@
         ?? new List<Teacher>();
     }
 }
+
 
 
 

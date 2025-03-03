@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IConfiguration
+
+@{
     ViewData["Title"] = "Йога в Пятигорске Yoga Masterskya";
 }
 
@@ -6,9 +8,9 @@
 
 @await Html.PartialAsync("Welcom") 
 
-@await Html.PartialAsync("Directions")
+@await Html.PartialAsync("Directions", Model["Paths:Directions"])
 
-@await Html.PartialAsync("Teachers")
+@await Html.PartialAsync("Teachers", Model["Paths:Teachers"])
 
 @await Html.PartialAsync("Modal")
 

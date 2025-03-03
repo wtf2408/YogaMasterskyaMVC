@@ -1,6 +1,8 @@
-﻿@{
+﻿@model string;
+
+@{
     var directions = new List<Direction>();
-    string filePath = "D:\\CSharpProject\\MasterskyaBot\\MasterskyaBot\\bin\\Debug\\net8.0\\directions.json";  // путь к файлу JSON
+    string filePath = Model;  // путь к файлу JSON
     if (System.IO.File.Exists(filePath))
     {
         var json = System.IO.File.ReadAllText(filePath);
