@@ -33,7 +33,7 @@
                         <h2 class="teacher_name">@teachers[i].Name</h2>
                         @foreach (var desc in teachers[i].Descriptions)
                         {
-                            <p class="teacher_description">@desc</p> <br/>
+                            <p class="teacher_description">@Html.Raw(desc.Replace("\n", "<br>"))</p> <br />
                         }
                         @if(teachers[i].MainCourses != null) 
                         {
