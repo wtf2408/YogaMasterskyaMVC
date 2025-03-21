@@ -19,5 +19,9 @@ namespace YogaMasterskyaMVC.Controllers
         {
             return View(_configuration);
         }
+        public IActionResult Schedule()
+        {
+            return View(_configuration);
+        }
     }
 }

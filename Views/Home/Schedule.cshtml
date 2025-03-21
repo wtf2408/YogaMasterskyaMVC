@@ -1,0 +1,92 @@
+﻿@using System.IO
+@using System.Text.Json
+@using YogaMasterskyaMVC.Models
+@model IConfiguration
+
+@{
+    string schedulePath = Model["Paths:Schedule"];
+    string teachersPath = Model["Paths:Teachers"];
+    List<ScheduleEntry> scheduleEntries = new ();
+    List<Teacher> teachers= new();
+
+    if (System.IO.File.Exists(schedulePath))
+    {
+        var json = System.IO.File.ReadAllText(schedulePath);
+        scheduleEntries = JsonSerializer.Deserialize<List<ScheduleEntry>>(json) ?? new List<ScheduleEntry>();
+    }
+    if (System.IO.File.Exists(teachersPath))
+    {
+        var json = System.IO.File.ReadAllText(teachersPath);
+        teachers = JsonSerializer.Deserialize<List<Teacher>>(json) ?? new List<Teacher>();
+    }
+
+    var groupedSchedule = scheduleEntries.OrderBy(s => s.GetDayEnum())
+                                         .Join(teachers, s => s.TeacherId, t => t.Id, (s, t) => 
+                                         {
+                                             s.Teacher = t;
+                                             return s;
+                                         })
+                                         .GroupBy(s => s.Day);
+}
+
+<div class="container">
+    <div class="schedule__header">
+        <i class="fa-solid fa-table"></i>
+        <h2>Расписание занятий</h2>
+    </div>
+    <div class="schedule_container">
+        <table class="schedule">
+            <thead>
+                <tr>
+                    <th id="day__header">
+                        <div class="theader">
+                            <i class="fa-regular fa-calendar"></i>
+                            <p>День</p>
+                        </div>
+                    </th>
+                    <th id="time__header">
+                        <div class="theader">
+                            <i class="fa-regular fa-clock"></i>
+                            <p>Время</p>
+                        </div>
+                    </th>
+                    <th id="direction__header">
+                        <div class="theader">
+                            <i class="fa-solid fa-signs-post"></i>
+                            <p>Направление</p>
+                        </div>
+                    </th>
+                    <th id="teacher__header">
+                        <div class="theader">
+                            <i class="fa-regular fa-user"></i>
+                            <p>Преподаватель</p>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var group in groupedSchedule)
+                {
+                    bool firstRow = true;
+                    foreach (var entry in group)
+                    {
+                        <tr>
+                            @if (firstRow)
+                            {
+                                <td class="day__body" rowspan="@group.Count()">@entry.Day</td>
+                                firstRow = false;
+                            }
+                            <td>@entry.Time.ToString("HH:mm")</td>
+                            <td class="direction_item">
+                                <p>@entry.Direction</p>
+                            </td>
+                            <td class="teacher__body">@entry.Teacher?.Name</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/6324adcb34.js" crossorigin="anonymous"></script>
+@* <script src="~/scripts/schedule.js"></script> *@

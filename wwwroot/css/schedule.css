@@ -1,8 +1,8 @@
 body {
-    overflow: hidden;
 }
 
 .container {
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -13,7 +13,9 @@ body {
     margin: 3rem 0;
     overflow-y: auto;
     height: 510px;
-    border-bottom: 1px solid #ddd;
+
+    width: 100%;
+    overflow-x: auto;
 }
 .schedule__header {
     margin-top: 3rem;
@@ -27,8 +29,11 @@ body {
 .schedule__header i{
     font-size: 1.4rem;
 }
-table  {
+table {
+    margin: 0 auto;
+    min-width: 600px;
     border-collapse: collapse;
+    border-bottom: 1px solid #ddd
 }
 /* tr {
     border-bottom: 1px solid #ddd;
