@@ -21,6 +21,7 @@
     }
 
     var groupedSchedule = scheduleEntries.OrderBy(s => s.GetDayEnum())
+                                         .ThenBy(s => s.Time)
                                          .Join(teachers, s => s.TeacherId, t => t.Id, (s, t) => 
                                          {
                                              s.Teacher = t;

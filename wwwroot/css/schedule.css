@@ -59,7 +59,7 @@ thead tr {
     flex-wrap: nowrap;
 }
 .day__body {
-    background-color: #b2ddff;
+    background-color: #b2ddff80;
 }
 .day__body {
     border-bottom: 1px solid #c0c0c0;
